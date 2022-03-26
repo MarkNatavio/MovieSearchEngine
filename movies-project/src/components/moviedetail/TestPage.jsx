@@ -96,7 +96,7 @@ export function TestPage({ match }) {
         var ans = "";
         var count = 0;
         for (var i = a.length; i > 0; i--) {
-            if (count == 3) {
+            if (count === 3) {
                 ans = "," + ans;
                 count = 0;
             }
@@ -114,14 +114,19 @@ export function TestPage({ match }) {
     }
 
     function run() {
-        alert("check");
+        setIsOpen(true);
     }
 
     return (
         <div className='body'>
             <div className='MoviePage image' style={getPosterLink(detail.backdrop_path)}>
             </div>
-            <div className="MoviePage d-flex justify-content-center flex-column">
+            <div className='arrow' style = {{width: "100%"}}>
+                <svg style = {{fontSize: "2em"}} xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                    <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+                </svg>
+            </div>
+            <div className="MoviePageInfo d-flex justify-content-center flex-column" style = {{zIndex: "2"}}>
                 <div className = "mx-5 d-flex flex-column">
                     <div className='d-flex flex-row'>
                         {
@@ -145,18 +150,13 @@ export function TestPage({ match }) {
                         <p className='text-white font-weight-bold'>{detail.vote_average}</p>
                     </div>
                     <div className = "d-flex flex-row align-items-center mt-5">
-                        <div className = "playButton mr-3 py-2 px-2" onClick={console.log("play")}>
+                        <div className = "playButton mr-3 py-2 px-2" onClick={() => run()}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" className="bi bi-play-fill" viewBox="0 0 16 16">
                                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                             </svg>
                         </div>
                         <p className = "learn text-white font-weight-bold"> Watch Trailer </p>
                     </div>
-                </div>
-                <div className='arrow' style = {{width: "100%"}}>
-                    <svg style = {{fontSize: "2em"}} xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                        <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
-                    </svg>
                 </div>
             </div>
             <div className='px-5 pt-5 details'>
