@@ -38,7 +38,7 @@
 }
 
 .details {
-    height: 120vh;
+    height: 140vh;
     background-color: #000000;
 }
 
@@ -87,6 +87,18 @@
     z-index: 0; 
 }
 
+.similarPoster {
+    border-radius: 10px;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.similarbox:hover {
+    background-color: #262626;
+    text-decoration: none;
+}
+
 .box {
     background-color: antiquewhite;
     border-radius: 15px;
@@ -95,6 +107,13 @@
     background-position: center;
     background-size: cover;
     box-shadow: 1px -55px 97px -9px rgba(0, 0, 0,0.5) inset;
+}
+
+.similarbox {
+    background-color: #222222;
+    border-radius: 15px;
+    height: 15vh;
+    width: 12%;
 }
 
 .col-1 {

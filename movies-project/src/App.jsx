@@ -10,8 +10,8 @@ export function App() {
     <main>
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/movie/:id" component={MovieDetail} />
-        <Route path="/testPage" component={TestPage} />
+        <Route path="/movie/:id" component={TestPage} />
+        <Route path="/testPage/:id" component={TestPage} />
       </Switch>
     </main>
   );

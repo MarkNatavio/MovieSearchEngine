@@ -54,6 +54,7 @@ export const fetchMovieByGenre = async (genre_id) => {
 
 // Get data on movie selected
 export const fetchMovieDetail = async (id) => {
+    console.log(movieUrl + '/' + id)
     try {
         const { data } = await axios.get(`${movieUrl}/${id}`, {
             params: {

@@ -1,8 +1,73 @@
 import './movie.css'
 import React, { useState, useEffect } from "react";
+import { fetchMovieDetail, fetchMovieVideos, fetchCasts, fetchSimilarMovie } from "../../service";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
+import { Modal } from "react-bootstrap";
+import ReactPlayer from "react-player";
+import ReactStars from "react-rating-stars-component";
+import { Link } from 'react-router-dom';
 
-export function TestPage() {
+export function TestPage({ match }) {
+
+    let params = match.params;
+    let genres = [];
+    const [isOpen, setIsOpen] = useState(false);
+    const [detail, setDetail] = useState([]);
+    const [video, setVideo] = useState([]);
+    const [casts, setCasts] = useState([]);
+    const [similarMovie, setSimilarMovie] = useState([]);
+
+    useEffect(() => {
+        window.scroll(0, 0);
+        const fetchAPI = async () => {
+        setDetail(await fetchMovieDetail(params.id));
+        setVideo(await fetchMovieVideos(params.id));
+        setCasts(await fetchCasts(params.id));
+        setSimilarMovie(await fetchSimilarMovie(params.id));
+        genres = detail.genres;
+        };
+        
+        fetchAPI();
+    }, [params.id]);
+
+    genres = detail.genres;
+
+    if (genres === undefined) {
+        return (
+            <div>
+                Loading
+            </div>
+        )
+    }   
+
+    const MoviePalyerModal = (props) => {
+        const youtubeUrl = "https://www.youtube.com/watch?v=";
+        return (
+        <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+            <Modal.Title
+                id="contained-modal-title-vcenter"
+                style={{ color: "#000000", fontWeight: "bolder" }}
+            >
+                {detail.title}
+            </Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{ backgroundColor: "#000000" }}>
+            <ReactPlayer
+                className="container-fluid"
+                url={youtubeUrl + video.key}
+                playing
+                width="100%"
+            ></ReactPlayer>
+            </Modal.Body>
+        </Modal>
+        );
+    };
 
     window.onscroll = function () { myFunction() };
     function myFunction() {
@@ -19,14 +84,42 @@ export function TestPage() {
         }
     }
 
-    var genres = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime'];
-    var rating = 8.2;
+    function getPosterLink(a) {
+        var divStyle = {
+            backgroundImage: 'url("https://image.tmdb.org/t/p/original' + a + '")',
+        };
+        return divStyle;
+    }
 
-    var cast = [['Tom', 'Spiderman'], ['Tom', 'Spiderman'], ['Tom', 'Spiderman'], ['Tom', 'Spiderman'], ['Tom', 'Spiderman'],  ['Tom', 'Spiderman'],  ['Tom', 'Spiderman'], ['Tom', 'Spiderman'],  ['Tom', 'Spiderman'], ['Tom', 'Spiderman'], ['Tom', 'Spiderman'], ['Tom', 'Spiderman'], ['Tom', 'Spiderman']];
+    function properFormat(b) { 
+        var a = b.toString();
+        var ans = "";
+        var count = 0;
+        for (var i = a.length; i > 0; i--) {
+            if (count == 3) {
+                ans = "," + ans;
+                count = 0;
+            }
+            ans = a[i - 1] + ans;
+            count++;
+        }
+        return ans;
+    }
+
+    function properTimeFormat(b) {
+        var ans = "";
+        var c = parseInt(b / 60)
+        ans = c + "hr " + (b % 60) + "min";
+        return ans;
+    }
+
+    function run() {
+        alert("check");
+    }
 
     return (
         <div className='body'>
-            <div className='MoviePage image' style={{backgroundImage: "url('https://wallpaperaccess.com/full/254892.jpg')"}}>
+            <div className='MoviePage image' style={getPosterLink(detail.backdrop_path)}>
             </div>
             <div className="MoviePage d-flex justify-content-center flex-column">
                 <div className = "mx-5 d-flex flex-column">
@@ -34,20 +127,25 @@ export function TestPage() {
                         {
                             genres.map((genre) => {
                                 return (
-                                    <p className='transparentBox px-4 py-2 mr-3 text-white'>{genre}</p>
+                                    <p className='transparentBox px-4 py-2 mr-3 text-white'>{genre.name}</p>
                                 )
                             })
                         }
                     </div>
-                    <h2 className = "text-white my-3 display-4">The Shawshank Redemption</h2>
+                    <MoviePalyerModal show={isOpen}
+                        onHide={() => {
+                            setIsOpen(false);
+                        }}
+                        ></MoviePalyerModal>
+                    <h2 className = "text-white my-3 display-4">{detail.title}</h2>
                     <div className='Rating d-flex flex-row mt-2 align-items-center'>
                         <div className='ratingBox bg-yellow mr-2'>
                             <p className="text-dark px-2 py-1 font-weight-bold">IMDb</p>
                         </div>
-                        <p className='text-white font-weight-bold'>{rating}</p>
+                        <p className='text-white font-weight-bold'>{detail.vote_average}</p>
                     </div>
                     <div className = "d-flex flex-row align-items-center mt-5">
-                        <div className = "playButton mr-3 py-2 px-2">
+                        <div className = "playButton mr-3 py-2 px-2" onClick={console.log("play")}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" className="bi bi-play-fill" viewBox="0 0 16 16">
                                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
                             </svg>
@@ -64,33 +162,75 @@ export function TestPage() {
             <div className='px-5 pt-5 details'>
                 <div className = "scrollEffect">
                     <div className='d-flex flex-row'>
-                        <div className = "imagePoster mr-4 col-2 bg-primary" style={{backgroundImage: "url('https://townsquare.media/site/442/files/2019/03/spider-man-far-poster-2.jpg')"}}>
+                        <div className = "imagePoster mr-4 col-2 bg-primary" style={getPosterLink(detail.poster_path)}>
                         </div>
-                        <div>
-                            <div className='d-flex flex-row'>
-                                {
-                                    genres.map((genre) => {
-                                        return (
-                                            <p style = {{fontSize: "0.8em"}} className='secondBox px-3 py-2 mr-2 text-white'>{genre}</p>
-                                        )
-                                    })
-                                }
+                        <div className='row'>
+                            <div className='col-9'>
+                                <div className='d-flex flex-row'>
+                                    {
+                                        genres.map((genre) => {
+                                            return (
+                                                <p style = {{fontSize: "0.8em"}} className='secondBox px-3 py-2 mr-2 text-white'>{genre.name}</p>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <h2 className = "learn text-white my-3 display-4 font-weight-light">{detail.title}</h2>
+                                <div className = "mt-4 text-secondary col-8" style={{padding: 0, fontSize: "1.1em"}}>
+                                    {detail.overview}
+                                </div>
                             </div>
-                            <h2 className = "learn text-white my-3 display-4 font-weight-light">The Shawshank Redemption</h2>
-                            <div className = "mt-4 text-secondary col-6" style={{padding: 0, fontSize: "1.1em"}}>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione obcaecati temporibus quisquam eligendi? Beatae hic quisquam dolores quis ratione eius temporibus totam eveniet itaque autem et facilis, officiis consequuntur alias.
+                            <div className = "text-white mt-2 pt-5">
+                                <div className = "mb-4">
+                                    <p className='learn font-weight-bold '>RELEASE DATE</p>
+                                    <p className='pt-1'>{detail.release_date}</p>
+                                </div>
+                                <div className = "mb-4">
+                                    <p className='learn font-weight-bold'>RUN TIME</p>
+                                    <p className='pt-1'>{properTimeFormat(detail.runtime)}</p>
+                                </div>
+                                <div className='mb-4'>
+                                    <p className='learn font-weight-bold'>REVENUE</p>
+                                    <p className='pt-1'>$ {properFormat(detail.revenue)}</p>
+                                </div>
+                                <div>
+                                    <a href = {detail.homepage} target="_blank">
+                                        <p className='font-weight-bold'>WEBSITE LINK</p>
+                                    </a>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="mt-5">
+                        <p className='mt-5 pt-3 text-white font-weight-light' style = {{fontSize: "1.8em"}}>Similar Movies</p>
+                        <div className='d-flex flex-row scroll' style={{width: "100%"}}>
+                            {
+                                similarMovie.map((movie) => {
+                                    return (
+                                        <Link to={`/movie/${movie.id}`} className = "similarbox col-2 mr-4 d-flex flex-column justify-content-center">
+                                            <div className = "px-4 text-white display-5 font-weight-bold row" style = {{height: "10vh"}}>
+                                                <div className='col-8 learn d-flex flex-column justify-content-center' style = {{height: "100%"}}>
+                                                    <p>{movie.title}</p>
+                                                    <p className='font-weight-light' style={{fontSize: "0.85em"}}>Rating : {movie.rating}</p>
+                                                </div>
+                                                <div style={{backgroundImage: "url('" + movie.poster + "')"}} className='similarPoster col-4 bg-primary'>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                     <div className="mt-5">
                         <p className='mt-5 pt-3 text-white font-weight-light' style = {{fontSize: "1.8em"}}>Cast</p>
                         <div className='d-flex flex-row scroll' style={{width: "100%"}}>
                             {
-                                cast.map((value) => {
+                                casts.map((cast) => {
                                     return (
-                                        <div className='box pb-2 px-4 col-2 mr-4 d-flex flex-column justify-content-end' style = {{backgroundImage: "url('https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')"}}>
-                                            <p className='text-white' style= {{width: "100%", fontSize: "1.7em"}}>{cast[0]} Donene Donene</p>
-                                            <p className='text-white font-weight-bold'>{cast[1]}</p>
+                                        <div className='box pb-2 px-4 col-2 mr-4 d-flex flex-column justify-content-end' style = {{backgroundImage: "url('" + cast.img + "')"}}>
+                                            <p className='text-white' style= {{width: "100%", fontSize: "1.7em"}}>{cast.name}</p>
+                                            <p className='text-white font-weight-bold'>{cast.character}</p>
                                         </div>
                                     )
                                 })
