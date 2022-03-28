@@ -20,7 +20,7 @@ export function NavBar() {
                     <div className='navigation'>
                         <div className='mr-5 searchbar col-3'>
                             <i className="bi bi-search mr-2 font-weight-bold search"></i>
-                            <input type='text' className='ml-1 learn info' style={{fontSize: "0.85em"}} placeholder='Search' />
+                            <input type='text' className='ml-1 learn info' style={{fontSize: "0.85em", overflow: "overlay"}} placeholder='Search' />
                         </div>
                         <div className='d-flex flex-column bar py-2'>
                             <div className='line mb-1 mt-2'></div>
