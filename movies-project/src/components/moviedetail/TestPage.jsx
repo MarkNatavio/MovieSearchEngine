@@ -6,11 +6,8 @@ import { Modal } from "react-bootstrap";
 import ReactPlayer from "react-player";
 import ReactStars from "react-rating-stars-component";
 import { Link } from 'react-router-dom';
-<<<<<<< Updated upstream
-import Footer from '../Footer'
-=======
+
 import Footer from '../Footer';
->>>>>>> Stashed changes
 
 export function TestPage({ match }) {
 
