@@ -7,6 +7,8 @@ import ReactPlayer from "react-player";
 import ReactStars from "react-rating-stars-component";
 import { Link } from 'react-router-dom';
 
+import Footer from '../Footer';
+
 export function TestPage({ match }) {
 
     let params = match.params;
@@ -236,8 +238,18 @@ export function TestPage({ match }) {
                                 })
                             }
                         </div>
+                        <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
+                        <div className='footer'>
+                            
+                            <Footer style={{with:"100%"}}></Footer>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div className='px-5 pt-5 footer' style= {{backgroundColor: 'black', height: '450px'}}>
+                <hr className="mt-5" style={{borderTop: "1px solid #5a606b" }}></hr>
+                <Footer ></Footer>
             </div>
         </div>
     );
