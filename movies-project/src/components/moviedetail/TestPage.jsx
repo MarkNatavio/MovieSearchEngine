@@ -238,17 +238,12 @@ export function TestPage({ match }) {
                                 })
                             }
                         </div>
-                        <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
-                        <div className='footer'>
-                            
-                            <Footer style={{with:"100%"}}></Footer>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className='px-5 pt-5 footer' style= {{backgroundColor: 'black', height: '450px'}}>
-                <hr className="mt-5" style={{borderTop: "1px solid #5a606b" }}></hr>
+            <div className='footer' style= {{backgroundColor: 'black', height: '450px'}}>
+                <hr style={{borderTop: "1px solid #5a606b", marginTop: "0px", marginBottom: "10px", marginLeft: "50px", marginRight: "50px"}}></hr>
                 <Footer ></Footer>
             </div>
         </div>
