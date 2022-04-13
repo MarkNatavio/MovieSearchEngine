@@ -5,16 +5,18 @@ import { Home } from "./components/home/Home";
 import { MovieDetail } from "./components/moviedetail/MovieDetail";
 import { TestPage } from "./components/moviedetail/TestPage";
 import { NavBar } from "./components/navBar/NavBar";
+import { Login } from "./components/login/Login";
 
 export function App() {
   return (
-    <div>
+    <div className="mainBody">
       <NavBar></NavBar>
       <main>
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/movie/:id" component={TestPage} />
           <Route path="/testPage/:id" component={TestPage} />
+          <Route path="/login" component={Login} />
         </Switch>
       </main>
     </div>
