@@ -46,16 +46,18 @@ export function Home() {
   
   const moviesSearched = movieTitle.map((item, index) => {
     return (
-      <div className="col-md-3 col-sm-6" key={index}>
-        <div className="card info">
-          <Link to={`/movie/${item.id}`}>
-            <img className="img-fluid" src={item.poster} alt={item.title}></img>
-          </Link>
-          <div className="mt-3 movieData">
-            <p style={{ fontWeight: "bolder" }}>{item.title}</p>
-            <p>Rated: {item.rating}</p>
+      <div className="col-md-3 col-sm-6 mb-4" key={index}>
+        <Link to={`/movie/${item.id}`}>
+          <div  style={{position: "relative"}}>
+            <img className="img-fluid image-poster" src={item.poster} alt={item.title}></img>
+            <div className="movieData">
+              <div>
+                <p className="okay" style={{ fontWeight: "500"}}>{item.title}</p>
+                <p className="okay" style = {{fontSize: "0.9rem"}}>Rated: {item.rating}</p>
+              </div>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     );
   });

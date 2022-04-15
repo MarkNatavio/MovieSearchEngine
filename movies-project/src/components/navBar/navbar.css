@@ -48,7 +48,7 @@
 }
 
 .bar {
-    background-color: white;
+    background-color: rgba(255, 255, 255, .15);
     font-weight: bold;
     color: black;
     padding: 0% 2%;
@@ -59,9 +59,8 @@
 .line {
     float: right;
     height: 3px;
-    width: 18px;
-    border-radius: 100px;
-    background-color: #37393a;
+    width: 22px;
+    background-color: white;
 }
 
 .searchbar {
@@ -92,4 +91,186 @@
 
 .search {
     -webkit-text-stroke: 0.6px;
+}
+
+nav {
+    width: 100%;
+    display: grid;
+    height: 5.5vh;
+    margin-top: 1vh;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    z-index: 3;
+}
+
+.sidenavNone {
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    display: grid;
+    padding-top: 60px;
+    opacity: 0;
+}
+
+.hamburger {
+    display: grid;
+    float: right;
+    justify-content: flex-end;
+}
+
+.menu {
+    height: 17px;
+    position: fixed;
+    right: 0;
+    z-index: 2;
+    width: 25px;
+    padding-right: 3%;
+    display: grid;
+    justify-items: flex-end;
+    transition: all .2s ease-in-out;
+}
+
+.menuActive{
+    height: 20px;
+    position: fixed;
+    right: 0;
+    z-index: 2;
+    width: 30px;
+    display: grid;
+    padding-right: 3%;
+    transition: all .2s ease-in-out;
+}
+
+.mainMain {
+    background-color: hsla(0,0%,93.3%,.7);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.menu .line {
+    float: right;
+    transition: all .2s ease-in-out;
+}
+
+.menuActive .line:nth-child(1) {
+    transform: rotate(45deg) translateY(-5px);
+    transform-origin: left top;
+    background-color: #000000;
+    transition: all .2s ease-in-out;
+}
+
+.menuActive .line:nth-child(2) {
+    transform: rotate(-45deg) translateY(6px);
+    transform-origin: left bottom;
+    background-color: #000000;
+    transition: all .2s ease-in-out;
+}
+
+.sidenav {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    display: grid;
+    justify-content: flex-start;
+    align-items: center;
+    grid-template-columns: 100%;
+    display: grid;
+    place-items: center;
+}
+
+
+.marque {
+    width: 100%;
+    height: 3.5rem;
+    overflow: hidden;
+    margin-bottom: 5%;
+    white-space:nowrap;
+}
+
+
+.marque p:hover {
+    position: relative;
+    animation: animate 0.2s linear;
+    top: 0;
+}
+
+
+@keyframes animate {
+    from {
+        top: 0rem
+    } to {
+        top: -3rem
+    }
+}
+
+.sidenav p {
+    position: relative;
+    top: 0;
+}
+
+.text {
+    margin-bottom: 14%;
+    color: #858585;
+}
+
+.sidenav a {
+    text-decoration: none;
+}
+
+.sidenav .links {
+    margin-bottom: 8%;
+    text-decoration: none;
+    font-size: 2.5rem;
+    color: rgb(51, 51, 51);
+    display: block;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-width: 1025px) {
+    .sidenav {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 824px) {
+    .sidenav {
+        width: 100%;
+    }
+
+    .sidenav .links {
+        font-size: 2rem;
+    }
+
+    .marque {
+        height: 3rem;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
