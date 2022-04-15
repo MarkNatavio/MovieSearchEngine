@@ -11,7 +11,7 @@ import { Signin } from "./components/signin/signin";
 export function App() {
   return (
     <div className="mainBody">
-      <NavBar></NavBar>
+      <NavBar/>
       <main>
         <Switch>
           <Route path="/" component={Home} exact />

@@ -13,8 +13,8 @@ export function Signin() {
                     <input type="text" placeholder='Enter email'></input>
                     <p className='text-white label mt-4 mb-2'>Password</p>
                     <input type="password" placeholder='Enter password'></input>
-                    <p className='text-white label mt-4 mb-2'>Password (Confirm)</p>
-                    <input type="password" placeholder='Conffirm password'></input>
+                    <p className='text-white label mt-4 mb-2'>Password Confirmation</p>
+                    <input type="password" placeholder='Confirm password'></input>
 
                     <div className='mt-5 pt-3'>
                         <button className='button'>
