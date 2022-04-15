@@ -244,7 +244,7 @@ export function TestPage({ match }) {
 
             <div className='footer' style= {{backgroundColor: 'black', height: '225px'}}>
                 <hr style={{borderTop: "1px solid #5a606b", marginTop: "0px", marginBottom: "20px", marginLeft: "50px", marginRight: "50px"}}></hr>
-                <Footer ></Footer>
+                <Footer />
             </div>
         </div>
     );

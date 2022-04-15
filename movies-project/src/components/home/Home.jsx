@@ -30,10 +30,12 @@ export function Home() {
 
   // Searching movies based on keyword
   const handleMovieSearch = async () => {
-    setSearchTitle(await movieSearch(inputText));
-    setMovieByGenre(await fetchMovieByGenre(0));
+    if (inputText.length >= 1){
+      setSearchTitle(await movieSearch(inputText));
+      setMovieByGenre(await fetchMovieByGenre(0));
+    }
   }
-
+  
   const handleNewKeyword = (event) => {
     inputText = event.target.value;
   }
@@ -98,12 +100,11 @@ export function Home() {
       <hr style={{ borderTop: "1px solid #5a606b" }}></hr>
       
       <h3 className="mt-3" style={{color: 'white'}}>Search</h3>
-      <form>
-          <input type='text' placeholder='Looking for something?' onChange={handleNewKeyword}></input>
-          <button type="button" style={{color:'gold'}} className="btn btn-outline-info"
-            onClick={ handleMovieSearch }>Enter</button>
-      </form>
-      
+      <div className='mr-5 searchbar col-3' style={{height: "37px"}}>
+        <i className="bi bi-search mr-2 font-weight-bold search" onClick={ handleMovieSearch } />
+        <input type='text' className='ml-1 learn info' style={{fontSize: "0.85em", overflow: "overlay", width: "90%"}} placeholder='Search' onChange={handleNewKeyword}/>
+      </div>
+
       <div className="row mt-3">
         <div className="col">
           <h3 className="mt-3" style={{color: 'white'}}>Genres:</h3>
