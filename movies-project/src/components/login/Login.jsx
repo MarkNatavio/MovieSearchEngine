@@ -1,6 +1,7 @@
 import './login.css';
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export function Login() {
     return (
@@ -13,8 +14,14 @@ export function Login() {
                     <input type="text" placeholder='Enter email'></input>
                     <p className='text-white label mt-4 mb-2'>Password</p>
                     <input type="password" placeholder='Enter password'></input>
-
-                    <div className='mt-5 pt-3'>
+                    <p className='mt-3'>Don't have an account?  
+                        <Link to="/signup" style={{textDecoration: "none"}}>
+                            <span style = {{color: "#604E9E", fontWeight: "bolder", marginLeft: "0.5%"}}>
+                                Sign Up
+                            </span>
+                        </Link>
+                    </p>
+                    <div className='mt-4 pt-3'>
                         <button className='button'>
                             Log In
                         </button>

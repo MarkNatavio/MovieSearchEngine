@@ -39,7 +39,7 @@ export function Home() {
       setMovieByGenre(await fetchMovieByGenre(0));
     }
   }
-  
+
   const handleNewKeyword = (event) => {
     inputText = event.target.value;
   }
@@ -61,6 +61,14 @@ export function Home() {
       </div>
     );
   });
+
+  function handle(e){
+    if(e.key === "Enter"){
+      var input = document.getElementsByClassName("search");
+      input[0].click();
+    }
+    return false;
+  } 
 
   const genreList = genres.map((item, index) => {
     return (
@@ -117,7 +125,7 @@ export function Home() {
       <div className="container mainContainer mt-5">
         <div className='mr-5 searchbar col-12' style={{height: "37px"}}>
           <i className="bi bi-search mr-2 font-weight-bold search" onClick={ handleMovieSearch } />
-          <input type='text' className='ml-1 learn info' style={{fontSize: "0.85em", overflow: "overlay", width: "90%"}} placeholder='Search' onChange={handleNewKeyword}/>
+          <input type='text' onKeyPress={handle} className='ml-1 learn info' style={{fontSize: "0.85em", overflow: "overlay", width: "90%"}} placeholder='Search' onChange={handleNewKeyword}/>
         </div>
 
         <div className="row mt-2">

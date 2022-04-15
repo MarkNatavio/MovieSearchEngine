@@ -6,7 +6,7 @@ import { MovieDetail } from "./components/moviedetail/MovieDetail";
 import { TestPage } from "./components/moviedetail/TestPage";
 import { NavBar } from "./components/navBar/NavBar";
 import { Login } from "./components/login/Login";
-import { Signin } from "./components/signin/signin";
+import { SignUp } from "./components/signup/signup";
 
 export function App() {
   return (
@@ -17,8 +17,8 @@ export function App() {
           <Route path="/" component={Home} exact />
           <Route path="/movie/:id" component={TestPage} />
           <Route path="/testPage/:id" component={TestPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/signin" component={Signin} />
+          <Route path="/signin" component={Login} />
+          <Route path="/signup" component={SignUp} />
         </Switch>
       </main>
     </div>

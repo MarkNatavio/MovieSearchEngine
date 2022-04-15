@@ -53,9 +53,9 @@ export function NavBar() {
                                     <p className = "links">Home<br></br> Home</p>
                                 </div>
                             </Link>
-                            <Link to = '/about' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            <Link to = '/signin' style={{textDecoration: "none"}} onClick = {closeNavLink}>
                                 <div className = "marque">
-                                    <p className = "links">About Me<br></br> About Me</p>
+                                    <p className = "links">Sign In<br></br> Sign In</p>
                                 </div>
                             </Link>
                             <Link to = '/projects' style={{textDecoration: "none"}} onClick = {closeNavLink}>
