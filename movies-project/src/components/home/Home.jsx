@@ -138,6 +138,10 @@ export function Home() {
 
         <div className="row mt-3">{moviesSearched}</div>
         <div className="row mt-3">{movieList} </div>
+        <div className='footer' style= {{backgroundColor: 'black', height: '225px'}}>
+          <hr style={{borderTop: "1px solid #5a606b", marginTop: "0px", marginBottom: "20px"}}></hr>
+          <Footer />
+        </div>
       </div>
     </div>
   );
