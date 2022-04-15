@@ -3,6 +3,7 @@ import { fetchGenre, fetchMovieByGenre, movieSearch } from "../../service/index"
 import Footer from '../Footer'
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import { Link } from "react-router-dom";
+import './home.css'
 
 export function Home() {
 
@@ -11,6 +12,8 @@ export function Home() {
   const [genres, setGenres] = useState([]);
   const [movieByGenre, setMovieByGenre] = useState([]);
   const [movieTitle, setSearchTitle] = useState([]);
+
+  const [selectedGenre, setSelectedGenre] = useState('');
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -26,6 +29,7 @@ export function Home() {
   const handleGenreClick = async (genre_id) => {
     setMovieByGenre(await fetchMovieByGenre(genre_id));
     setSearchTitle(await movieSearch("$"));
+    setSelectedGenre(genre_id);
   };
 
   // Searching movies based on keyword
@@ -43,14 +47,14 @@ export function Home() {
   const moviesSearched = movieTitle.map((item, index) => {
     return (
       <div className="col-md-3 col-sm-6" key={index}>
-        <div className="card">
+        <div className="card info">
           <Link to={`/movie/${item.id}`}>
             <img className="img-fluid" src={item.poster} alt={item.title}></img>
           </Link>
-        </div>
-        <div className="mt-3">
-          <p style={{ fontWeight: "bolder" }}>{item.title}</p>
-          <p>Rated: {item.rating}</p>
+          <div className="mt-3 movieData">
+            <p style={{ fontWeight: "bolder" }}>{item.title}</p>
+            <p>Rated: {item.rating}</p>
+          </div>
         </div>
       </div>
     );
@@ -59,67 +63,72 @@ export function Home() {
   const genreList = genres.map((item, index) => {
     return (
       <li className="list-inline-item" key={index}>
-        <button
-          type="button"
-          style={{color:'gold'}}
-          className="btn btn-outline-info"
-          onClick={() => {
-            handleGenreClick(item.id);
-          }}
-        >
-          {item.name}
-        </button>
+        {(selectedGenre !== item.id) &&
+          <button
+            type="button"
+            style={{color:'white', fontWeight: "300", border: "none"}}
+            className="btn btn-outline-info"
+            onClick={() => {
+              handleGenreClick(item.id);
+            }}
+          >
+            {item.name}
+          </button>
+        }
+        {
+          (selectedGenre === item.id) &&
+          <button
+            type="button"
+            style={{color:'white', fontWeight: "300", border: "none", backgroundColor: "#3A3A3A"}}
+            className="btn btn-outline-info"
+            onClick={() => {
+              handleGenreClick(item.id);
+            }}
+          >
+            {item.name}
+          </button>
+        }
       </li>
     );
   });
 
   const movieList = movieByGenre.map((item, index) => {
     return (
-      <div className="col-md-3 col-sm-6" key={index}>
-        <div className="card">
-          <Link to={`/movie/${item.id}`}>
-            <img className="img-fluid" src={item.poster} alt={item.title}></img>
-          </Link>
-        </div>
-        <div className="mt-3">
-          <p style={{ fontWeight: "bolder" }}>{item.title}</p>
-          <p>Rated: {item.rating}</p>
-        </div>
+      <div className="col-md-3 col-sm-6 mb-4" key={index}>
+        <Link to={`/movie/${item.id}`}>
+          <div  style={{position: "relative"}}>
+            <img className="img-fluid image-poster" src={item.poster} alt={item.title}></img>
+            <div className="movieData">
+              <div>
+                <p className="okay" style={{ fontWeight: "500"}}>{item.title}</p>
+                <p className="okay" style = {{fontSize: "0.9rem"}}>Rated: {item.rating}</p>
+              </div>
+            </div>
+          </div>
+        </Link>
       </div>
     );
   });
 
   return (
-    <div className="container">
-      <div className="row mt-4">
-        <div className="col-1">
-            <h1 style={{color: 'white'}}>Home</h1>
+    <div className="mainContainer">
+      <div className="container mainContainer mt-5">
+        <div className='mr-5 searchbar col-12' style={{height: "37px"}}>
+          <i className="bi bi-search mr-2 font-weight-bold search" onClick={ handleMovieSearch } />
+          <input type='text' className='ml-1 learn info' style={{fontSize: "0.85em", overflow: "overlay", width: "90%"}} placeholder='Search' onChange={handleNewKeyword}/>
         </div>
-      </div>
 
-      <hr style={{ borderTop: "1px solid #5a606b" }}></hr>
-      
-      <h3 className="mt-3" style={{color: 'white'}}>Search</h3>
-      <div className='mr-5 searchbar col-3' style={{height: "37px"}}>
-        <i className="bi bi-search mr-2 font-weight-bold search" onClick={ handleMovieSearch } />
-        <input type='text' className='ml-1 learn info' style={{fontSize: "0.85em", overflow: "overlay", width: "90%"}} placeholder='Search' onChange={handleNewKeyword}/>
-      </div>
-
-      <div className="row mt-3">
-        <div className="col">
-          <h3 className="mt-3" style={{color: 'white'}}>Genres:</h3>
-          <ul className="list-inline">{genreList}</ul>
+        <div className="row mt-2">
+          <div className="col mt-3">
+            <ul className="list-inline">{genreList}</ul>
+          </div>
         </div>
+
+        <h3 style={{color: 'white'}} className = "mt-5">{"Movies"}</h3>
+
+        <div className="row mt-3">{moviesSearched}</div>
+        <div className="row mt-3">{movieList} </div>
       </div>
-
-      <hr style={{ borderTop: "1px solid #5a606b" }}></hr>
-      <h3 style={{color: 'white'}}>{"Movies"}</h3>
-
-      <div className="row mt-3">{moviesSearched}</div>
-      <div className="row mt-3">{movieList} </div>
-      
-      <hr className="mt-5" style={{ borderTop: "1px solid #5a606b" }}></hr>
-      <Footer/>
     </div>
   );
 }

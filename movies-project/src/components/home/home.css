@@ -1,0 +1,26 @@
+.movieData {
+    padding: 20px;
+    width: 100%;
+    color: white;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    background-position: center;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 10px -100px 67px -10px rgb(0, 0, 0, 0.7) inset;
+}
+
+.okay {
+    padding: 0;
+    margin: 0;
+}
+
+.image-poster {
+    filter: brightness(1.1);
+}
+
+.mainContainer {
+    margin-top: 8%;
+}
