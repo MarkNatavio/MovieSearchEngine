@@ -7,16 +7,16 @@ export function Login() {
         <div className='container-fluid d-flex p-0'>
             <div className='container height ml-5 pl-5'>
                 <div className='container-fluid'>
-                    <h2 className='text-white mb-3'>Welcome back</h2>
-                    <p className='text-white mb-4'>Welcome back! Please enter your details</p>
+                    <h2 className='text-white mb-3'>Welcome back!</h2>
+                    <p className='text-white mb-4'>Please enter your details</p>
                     <p className='text-white label mb-2'>Email</p>
-                    <input type="text"></input>
+                    <input type="text" placeholder='Enter email'></input>
                     <p className='text-white label mt-4 mb-2'>Password</p>
-                    <input type="password"></input>
+                    <input type="password" placeholder='Enter password'></input>
 
                     <div className='mt-5 pt-3'>
                         <button className='button'>
-                            Sign In
+                            Log In
                         </button>
                     </div>
                 </div>

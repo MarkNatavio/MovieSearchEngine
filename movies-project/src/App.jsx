@@ -6,6 +6,7 @@ import { MovieDetail } from "./components/moviedetail/MovieDetail";
 import { TestPage } from "./components/moviedetail/TestPage";
 import { NavBar } from "./components/navBar/NavBar";
 import { Login } from "./components/login/Login";
+import { Signin } from "./components/signin/signin";
 
 export function App() {
   return (
@@ -17,6 +18,7 @@ export function App() {
           <Route path="/movie/:id" component={TestPage} />
           <Route path="/testPage/:id" component={TestPage} />
           <Route path="/login" component={Login} />
+          <Route path="/signin" component={Signin} />
         </Switch>
       </main>
     </div>
