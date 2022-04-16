@@ -13,15 +13,14 @@ export function Home() {
   const [movieByGenre, setMovieByGenre] = useState([]);
   const [movieTitle, setSearchTitle] = useState([]);
 
-  const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState();
 
   useEffect(() => {
-    const fetchAPI = async () => {
+    const fetchAPI = async () => { 
       setGenres(await fetchGenre());
       setMovieByGenre(await fetchMovieByGenre(0));
       setSearchTitle(await movieSearch("$"));
     };
-
     fetchAPI();
   }, []);
 

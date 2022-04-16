@@ -8,19 +8,23 @@ import { NavBar } from "./components/navBar/NavBar";
 import { Login } from "./components/login/Login";
 import { SignUp } from "./components/signup/signup";
 
+import { AuthProvider } from "./service/authContext";
+
 export function App() {
   return (
     <div className="mainBody">
-      <NavBar/>
-      <main>
-        <Switch>
-          <Route path="/" component={Home} exact />
-          <Route path="/movie/:id" component={TestPage} />
-          <Route path="/testPage/:id" component={TestPage} />
-          <Route path="/signin" component={Login} />
-          <Route path="/signup" component={SignUp} />
-        </Switch>
-      </main>
+      <AuthProvider>
+        <NavBar/>
+        <main>
+          <Switch>
+            <Route path="/" component={Home} exact />
+            <Route path="/movie/:id" component={TestPage} />
+            <Route path="/testPage/:id" component={TestPage} />
+            <Route path="/signin" component={Login} />
+            <Route path="/signup" component={SignUp} />
+          </Switch>
+        </main>
+      </AuthProvider>
     </div>
   );
 }

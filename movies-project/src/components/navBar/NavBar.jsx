@@ -4,9 +4,12 @@ import React, { useState, useEffect } from "react";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import { Link } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useAuth } from '../../service/authContext';
 
 export function NavBar() {
     const [navBarClicked, setClicked] = useState(false);
+
+    const { userName, loggedIn, handleLogout } = useAuth();
 
     function openNav() {
         setClicked(true);
@@ -23,6 +26,12 @@ export function NavBar() {
         window.scroll(0,0);
     }
 
+    async function logOut(e) {
+        e.preventDefault();
+        await handleLogout()
+        alert("Logged out successfully!")
+    }
+
     return (
         <div className='px-5 pt-4 container-fluid navbar' style={{position: "absolute", zIndex: "5"}}>
             <div className='row container-fluid'>
@@ -35,15 +44,20 @@ export function NavBar() {
                         </div>
                     </Link>
                 </div>
-                <div onClick={navBarClicked ? closeNav : openNav} className = {navBarClicked ? "col d-flex justify-content-end menuActive" : "col d-flex justify-content-end menu"}>
+
+                
+                <div style = {{width: "100%"}} className = {navBarClicked ? "col d-flex justify-content-end menuActive" : "col d-flex justify-content-end menu"}>
                     <div className='navigation'>
-                        <div className='d-flex flex-column bar py-2'>
+                        {loggedIn &&
+                            <p onClick={(e) => logOut(e)} className='learn' style={{textAlign: "right", marginRight: "12%", cursor: "pointer"}}>{ userName }</p>
+                        }
+                        <div className='d-flex flex-column bar py-2' onClick={navBarClicked ? closeNav : openNav}>
                             <div className='line mb-1 mt-2'></div>
                             <div className='line mb-2'></div>
                         </div>
                     </div>
                 </div>
-
+            
                 <div className={navBarClicked ? "mainMain" : ""}>
                     <div className={navBarClicked ? "sidenav" : "sidenavNone"}>
                         <div>
