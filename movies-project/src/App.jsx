@@ -7,6 +7,7 @@ import { TestPage } from "./components/moviedetail/TestPage";
 import { NavBar } from "./components/navBar/NavBar";
 import { Login } from "./components/login/Login";
 import { SignUp } from "./components/signup/signup";
+import { About } from "./components/About/About";
 
 import { AuthProvider } from "./service/authContext";
 
@@ -22,6 +23,7 @@ export function App() {
             <Route path="/testPage/:id" component={TestPage} />
             <Route path="/signin" component={Login} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/about" component={About} />
           </Switch>
         </main>
       </AuthProvider>

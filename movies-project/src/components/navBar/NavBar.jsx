@@ -84,17 +84,18 @@ export function NavBar() {
                             {!loggedIn &&
                             <Link to = '/signin' style={{textDecoration: "none"}} onClick = {closeNavLink}>
                                 <div className = "marque">
-                                    <p className = "links">Sign In<br></br> Sign In</p>
+                                    <p className = "links">Log In<br></br> Log In</p>
                                 </div>
                             </Link>}
-                            <Link to = '/projects' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            {!loggedIn &&
+                            <Link to = '/signup' style={{textDecoration: "none"}} onClick = {closeNavLink}>
                                 <div className = "marque">
-                                    <p className = "links">Projects<br></br> Projects</p>
+                                    <p className = "links">Sign Up<br></br> Sign Up</p>
                                 </div>
-                            </Link>
-                            <Link to = '/contactme' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            </Link>}
+                            <Link to = '/about' style={{textDecoration: "none"}} onClick = {closeNavLink}>
                                 <div className = "marque">
-                                    <p className = "links">Contact Me<br></br> Contact Me</p>
+                                    <p className = "links">About<br></br> About</p>
                                 </div>
                             </Link>
                         </div>

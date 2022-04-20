@@ -45,7 +45,7 @@ export function SignUp() {
                     <p className='mt-3'>Already have an account?  
                         <Link to="/signin" style={{textDecoration: "none"}}>
                             <span style = {{color: "#604E9E", fontWeight: "bolder", marginLeft: "0.5%"}}>
-                                Sign In
+                                Log In
                             </span>
                         </Link>
                     </p>
@@ -54,7 +54,7 @@ export function SignUp() {
 
                     <div className='mt-4 pt-3'>
                         <button className='button' onClick={(e) => signUP(e)}>
-                            Sign In
+                            Sign Up
                         </button>
                     </div>
                 </div>
