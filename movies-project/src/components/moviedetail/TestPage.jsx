@@ -8,8 +8,11 @@ import ReactStars from "react-rating-stars-component";
 import { Link } from 'react-router-dom';
 
 import Footer from '../Footer';
+import { useAuth } from '../../service/authContext';
 
 export function TestPage({ match }) {
+
+    const { deleteFromFavorites, userFavorites, addToFavorites } = useAuth();
 
     let params = match.params;
     let genres = [];
@@ -19,7 +22,14 @@ export function TestPage({ match }) {
     const [casts, setCasts] = useState([]);
     const [similarMovie, setSimilarMovie] = useState([]);
 
+    const [isFavorite, setFavorite] = useState(false);
+
     useEffect(() => {
+        for (var i = 0; i < userFavorites.length; i++) {
+            if (userFavorites[i] === params.id) {
+                setFavorite(true);
+            }
+        }
         window.scroll(0, 0);
         const fetchAPI = async () => {
         setDetail(await fetchMovieDetail(params.id));
@@ -119,6 +129,18 @@ export function TestPage({ match }) {
         setIsOpen(true);
     }
 
+    async function selectFavorite(e) {
+        e.preventDefault();
+        console.log("hello", userFavorites);
+        if (isFavorite) {
+            await deleteFromFavorites(params.id);
+        } else {
+            await addToFavorites(params.id);
+        }
+        console.log("hello", userFavorites);
+        setFavorite(!isFavorite);
+    }
+
     return (
         <div className='body'>
             <div className='MoviePage image' style={getPosterLink(detail.backdrop_path)}>
@@ -180,6 +202,9 @@ export function TestPage({ match }) {
                                 <h2 className = "learn text-white my-3 display-4 font-weight-light">{detail.title}</h2>
                                 <div className = "mt-4 text-secondary col-8" style={{padding: 0, fontSize: "1.1em"}}>
                                     {detail.overview}
+                                </div>
+                                <div className="mt-4">
+                                    <i class="fa fa-heart bg-white favoritesButton" onClick={(e) => selectFavorite(e)} style = {isFavorite ? {color: "red"} : {color: "black"}} aria-hidden="true"></i>
                                 </div>
                             </div>
                             <div className = "text-white mt-2 pt-5">

@@ -13,16 +13,22 @@ export function NavBar() {
 
     function openNav() {
         setClicked(true);
+        var a = document.getElementsByClassName("learn");
+        a[0].style.display = "none";
         console.log("opened");
     }
 
     function closeNav() {
         setClicked(false);
+        var a = document.getElementsByClassName("learn");
+        a[0].style.display = "block";
         console.log("closed");
     }
 
     function closeNavLink() {
         setClicked(false);
+        var a = document.getElementsByClassName("learn");
+        a[0].style.display = "block";
         window.scroll(0,0);
     }
 
@@ -49,7 +55,15 @@ export function NavBar() {
                 <div style = {{width: "100%"}} className = {navBarClicked ? "col d-flex justify-content-end menuActive" : "col d-flex justify-content-end menu"}>
                     <div className='navigation'>
                         {loggedIn &&
-                            <p onClick={(e) => logOut(e)} className='learn' style={{textAlign: "right", marginRight: "12%", cursor: "pointer"}}>{ userName }</p>
+                            <div className='learn' style={{textAlign: "right", marginRight: "12%", cursor: "pointer"}}>
+                                <button class="dropbtn">Hello, {userName}</button>
+                                <div class="dropdown-content">
+                                    <Link to="/userProfile">
+                                        User Profile
+                                    </Link>
+                                    <a style = {{color: "black"}} onClick={(e) => logOut(e)}>Logout</a>
+                                </div>
+                            </div>
                         }
                         <div className='d-flex flex-column bar py-2' onClick={navBarClicked ? closeNav : openNav}>
                             <div className='line mb-1 mt-2'></div>
@@ -67,11 +81,12 @@ export function NavBar() {
                                     <p className = "links">Home<br></br> Home</p>
                                 </div>
                             </Link>
+                            {!loggedIn &&
                             <Link to = '/signin' style={{textDecoration: "none"}} onClick = {closeNavLink}>
                                 <div className = "marque">
                                     <p className = "links">Sign In<br></br> Sign In</p>
                                 </div>
-                            </Link>
+                            </Link>}
                             <Link to = '/projects' style={{textDecoration: "none"}} onClick = {closeNavLink}>
                                 <div className = "marque">
                                     <p className = "links">Projects<br></br> Projects</p>

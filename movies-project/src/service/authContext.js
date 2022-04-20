@@ -7,7 +7,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { setDoc, doc, onSnapshot } from "firebase/firestore";
+import { setDoc, doc, onSnapshot, updateDoc } from "firebase/firestore";
 
 const AuthContext = React.createContext();
 
@@ -20,12 +20,15 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
     const [userName, setUserName] = useState('');
+    const [userFavorites, setUserFavorites] = useState([]);
+    const [userId, setUserId] = useState('');
 
     async function addusertoDB(name, email, userId) {
         await setDoc(doc(db, 'Users', userId), {
             name: name,
             email: email,
             userId: userId,
+            favorites: [],
         });
     }
 
@@ -47,11 +50,14 @@ export function AuthProvider({ children }) {
         setCurrentUser(null);
         setLoggedIn(false);
         setUserName('');
+        setUserId('');
+        setUserFavorites([]);
     }
 
     async function getUserData(id) {
         const info = await onSnapshot(doc(db, 'Users', id), (doc) => {
             setUserName(doc.data().name);
+            setUserFavorites(doc.data().favorites);
             console.log("User Data :", doc.data());
         });
     }
@@ -68,14 +74,37 @@ export function AuthProvider({ children }) {
         return ret;
     }
 
+    async function addToFavorites(movieID) {
+        const washingtonRef = doc(db, "Users", userId);
+        userFavorites.push(movieID);
+        await updateDoc(washingtonRef, {
+            favorites: userFavorites
+        })
+    }
+
+    async function deleteFromFavorites(movieID) {
+        var a = userFavorites;
+        const index = a.indexOf(movieID);
+
+        if (index > -1) {
+            a.splice(index, 1);
+        }
+        const washingtonRef = doc(db, "Users", userId);
+        await updateDoc(washingtonRef, {
+            favorites: a
+        })
+    }
+
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             console.log("User : ", user);
             if (user != null) {
                 setCurrentUser(user);
                 setLoggedIn(true);
+                setUserId(user.uid);
                 getUserData(user.uid);
             } else {
+                setUserId('');
                 setCurrentUser(null);
                 setLoggedIn(false);
             }
@@ -87,7 +116,10 @@ export function AuthProvider({ children }) {
         login,
         loggedIn,
         userName,
-        handleLogout
+        handleLogout,
+        addToFavorites,
+        userFavorites,
+        deleteFromFavorites
     };
 
     return (
