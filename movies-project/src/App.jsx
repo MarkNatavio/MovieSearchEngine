@@ -8,6 +8,7 @@ import { NavBar } from "./components/navBar/NavBar";
 import { Login } from "./components/login/Login";
 import { SignUp } from "./components/signup/signup";
 import { About } from "./components/About/About";
+import { UserProfile } from "./components/userProfile/userProfile";
 
 import { AuthProvider } from "./service/authContext";
 
@@ -24,6 +25,7 @@ export function App() {
             <Route path="/signin" component={Login} />
             <Route path="/signup" component={SignUp} />
             <Route path="/about" component={About} />
+            <Route path="/userProfile" component={UserProfile} />
           </Switch>
         </main>
       </AuthProvider>
