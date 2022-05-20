@@ -5,8 +5,11 @@ import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
 import { Link } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useAuth } from '../../service/authContext';
+import { useHistory } from "react-router-dom"
 
 export function NavBar() {
+    const history = useHistory();
+
     const [navBarClicked, setClicked] = useState(false);
 
     const { userName, loggedIn, handleLogout } = useAuth();
@@ -25,7 +28,8 @@ export function NavBar() {
         console.log("closed");
     }
 
-    function closeNavLink() {
+    function closeNavLink(link) {
+        history.push(link);
         setClicked(false);
         var a = document.getElementsByClassName("learn");
         a[0].style.display = "block";
@@ -76,24 +80,24 @@ export function NavBar() {
                     <div className={navBarClicked ? "sidenav" : "sidenavNone"}>
                         <div>
                             <p className = "text">Menu</p>
-                            <Link to = '/' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            <Link to = '/' style={{textDecoration: "none"}} onClick = {() => closeNavLink("/")}>
                                 <div className = "marque">
                                     <p className = "links">Home<br></br> Home</p>
                                 </div>
                             </Link>
                             {!loggedIn &&
-                            <Link to = '/signin' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            <Link to = '/signin' style={{textDecoration: "none"}} onClick = {() => closeNavLink("/signin")}>
                                 <div className = "marque">
                                     <p className = "links">Log In<br></br> Log In</p>
                                 </div>
                             </Link>}
                             {!loggedIn &&
-                            <Link to = '/signup' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            <Link to = '/signup' style={{textDecoration: "none"}} onClick = {() => closeNavLink("/signup")}>
                                 <div className = "marque">
                                     <p className = "links">Sign Up<br></br> Sign Up</p>
                                 </div>
                             </Link>}
-                            <Link to = '/about' style={{textDecoration: "none"}} onClick = {closeNavLink}>
+                            <Link to = '/about' style={{textDecoration: "none"}} onClick = {() => closeNavLink("/about")}>
                                 <div className = "marque">
                                     <p className = "links">About<br></br> About</p>
                                 </div>
